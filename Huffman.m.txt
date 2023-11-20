@@ -1,0 +1,28 @@
+x=input('enter the number of symbols:');
+N=1:x;
+disp('The number of symbols are N:');
+disp(N);
+p=input('enter the probabilities:');
+disp(p);
+s=sort(p,'descend');
+disp('The sorted probabilities are:');
+disp(s);
+[dict,avglen]=huffmandict(N,s);
+disp('The average length of code is:');
+disp(avglen);
+H=0;
+for i=1:x
+    H=H+(p(i)*log2(1/p(i)));
+end
+disp('Entropy is:');
+disp(H);
+disp('bits/msg');
+E=(H/avglen)*100;
+disp('Efficiency is:');
+disp(E);
+codeword=huffmanenco(N,dict);
+disp('The codeword is:');
+disp(codeword);
+decode=huffmandeco(codeword,dict);
+disp('Decoded output is:');
+disp(decode);

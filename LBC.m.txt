@@ -1,0 +1,23 @@
+clc; 
+clear all; 
+k=input('Enter the length of Msg word: '); 
+n=input ('Enter the length of Codeword: '); 
+P=input('Enter the Parity Matrix: '); 
+G=[eye(k), P] 
+m=input('Enter the Msg word: '); 
+C=encode(m,n,k,'linear',G) 
+H=[transpose(P), eye(n-k)] 
+dtable=syndtable(H) 
+R=input('Enter the received codeword : '); 
+S_B=rem(R*transpose(H),2) 
+S_D=bi2de(S_B,'leŌ-msb') 
+if (S_D==0) 
+disp ('The received codeword is valid ') 
+else 
+disp('The received codeword is invalid') 
+E=dtable(S_D+1,:) 
+disp('The corrected codeword is : ') 
+CC=rem(R+E,2) 
+D=decode(C,n,k,'linear',G); 
+%msg=CC(1:k) 
+end 
